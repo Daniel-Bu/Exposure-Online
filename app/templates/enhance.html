@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+    {% if filename %}
+        <p>You have successfully uploaded a photo!</p>
+        <p>Photo filename: {{ filename }}</p>
+        <div class="row">
+            <div class="column">
+                <p>Original photo preview (TIFF format can only be displayed on Safari)</p>
+                <img src="{{ url_for('static', filename='upload/' + filename) }}">
+            </div>
+        </div>
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="fn" value={{ filename }}>
+            <button type="submit">Do Some Magic</button>
+        </form>
+    {% else %}
+        <p>No such photo!</p>
+    {% endif %}
+
+
+{% endblock content %}

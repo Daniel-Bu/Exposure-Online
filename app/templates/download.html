@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+    {% if filename and nfilename %}
+        <p>You have successfully uploaded a photo!</p>
+        <p>Photo name: {{ filename }}</p>
+        <div class="row">
+            <div class="column">
+                <p>Original photo preview (TIFF format can only be displayed on Safari)</p>
+                <img src="{{ url_for('static', filename='upload/' + filename) }}">
+            </div>
+            <div class="column">
+                <p>Enhanced photo preview</p>
+                <img src="{{ url_for('static', filename='download/' + nfilename) }}">
+            </div>
+        </div>
+        <br>
+        <a href="{{ url_for('static', filename='download/' + nfilename) }}" download>
+            <button type="button">Download</button>
+        </a>
+    {% else %}
+        <p>No such photo or the photo has not been enhanced!</p>
+    {% endif %}
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>Intro</h3>
+    <p>This is a project for 2019 fall ELEN 6770 at Columbia University.</p>
+    <p>Author: Zihan Bu (zb2244)</p>
+    <p>The project is based on paper: Yuanming Hu, Hao He, Chenxi Xu, Baoyuan Wang, and Stephen Lin. <a href="https://arxiv.org/abs/1709.09602">Exposure: A white-box photo post-processing framework</a>. ACM Trans. on Graphics (SIG-GRAPH), 37(2):26, 2018. GitHub repo <a href="https://github.com/yuanming-hu/exposure">here</a>.</p>
+
+    <h3>How to use</h3>
+    <ol>
+        <li>Upload raw image captured by your camera in TIFF format (PNG and JPEG are also acceptable but the ML model is trained on raw TIFF images, so compressed images may not reach the best outcome). You should be able to see preview of your photo.</li>
+        <li>Click on "Do Some Magic" and wait.</li>
+        <li>You should be able to see preview of enhanced photo on the bottom.</li>
+        <li>Click on "Download" to download the enhanced photo on your device.</li>
+    </ol>
+
+    <h3>Get started</h3>
+    <a href="/upload">Start to enhance your photo!</a>
+{% endblock content %}
