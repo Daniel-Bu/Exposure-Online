@@ -37,18 +37,16 @@ def upload():
 
     return render_template('upload.html')
 
-import cv2
 @app.route('/enhance', methods=['GET', 'POST'])
 def enhance():
     if request.method == 'POST':
         filename = request.values.get('fn')
         os.chdir('./exposure')
-        file_path = os.path.join('../app', 'static/upload', filename)
-        print("file path =", file_path)
+        file_path = os.path.join('..', app.config['UPLOAD_FOLDER'], filename)
         evaluate([file_path])
-        os.chdir('../app')
+        os.chdir('../')
         nfilename = filename + '.retouched.png'
-        if not os.path.exists(os.path.join('static/download', nfilename)):
+        if not os.path.exists(os.path.join(DOWNLOAD_FOLDER, nfilename)):
             nfilename = None
 
         return redirect(url_for('download', filename=filename, nfilename=nfilename))
