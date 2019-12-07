@@ -2,25 +2,30 @@
 
 {% block content %}
     
-    {% if filename and nfilename %}
-        <p>You have successfully uploaded a photo!</p>
+    {% if filename %}
         <p>Photo name: {{ filename }}</p>
         <div class="row">
             <div class="column">
                 <p>Original photo preview (TIFF format can only be displayed on Safari)</p>
                 <img src="{{ url_for('static', filename='upload/' + filename) }}">
             </div>
+            {% if nfilename %}
             <div class="column">
                 <p>Enhanced photo preview</p>
                 <img src="{{ url_for('static', filename='download/' + nfilename) }}">
             </div>
+            {% else %}
+            <p>Sorry, enhanced photo does not exist. Something might go wrong when trying to enhance your photo ...</p>
+            {% endif %}
         </div>
+        {% if nfilename %}
         <br>
         <a href="{{ url_for('static', filename='download/' + nfilename) }}" download>
             <button type="button">Download</button>
         </a>
+        {% endif %}
     {% else %}
-        <p>No such photo or the photo has not been enhanced!</p>
+        <p>No such photo!</p>
     {% endif %}
 
 {% endblock content %}

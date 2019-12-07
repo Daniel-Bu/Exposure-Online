@@ -1,7 +1,9 @@
+import sys
 import os
 from flask import render_template, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from app import app
+from exposure.app_evaluate import evaluate
 
 DOWNLOAD_FOLDER = 'app/static/download'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'tif', 'tiff'}
@@ -35,21 +37,26 @@ def upload():
 
     return render_template('upload.html')
 
+import cv2
 @app.route('/enhance', methods=['GET', 'POST'])
 def enhance():
     if request.method == 'POST':
         filename = request.values.get('fn')
+        os.chdir('./exposure')
+        file_path = os.path.join('../app', 'static/upload', filename)
+        print("file path =", file_path)
+        evaluate([file_path])
+        os.chdir('../app')
         nfilename = filename + '.retouched.png'
+        if not os.path.exists(os.path.join('static/download', nfilename)):
+            nfilename = None
 
         return redirect(url_for('download', filename=filename, nfilename=nfilename))
     
     return render_template('enhance.html', filename=request.args.get('filename'))
 
-@app.route('/download', methods=['GET', 'POST'])
+@app.route('/download', methods=['GET'])
 def download():
-    if request.method == 'POST':
-        pass
-
     return render_template('download.html',
                             filename=request.args.get('filename'),
                             nfilename=request.args.get('nfilename'))
